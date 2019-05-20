@@ -1,61 +1,38 @@
 #! /usr/bin/env node
-const limits = { risky: 15, toobig: 25, insane: 40 };
-const messages = {
-  acceptable: 'Good job! your pull request will be easy to review',
-  risky:
-    'Ok. Your pull request is getting a litle bit on the large side, keep an eye on it',
-  toobig:
-    'Woah! Your pull request is large, you may have your work cut out convincing folks to review it!',
-  insane: 'INSANITY! The number of files is too damn high!',
-};
-
-const matcher = new RegExp(/(\d*) files changed/);
-
 const exe = require('child_process').exec;
-const chalk = require('chalk');
+const limitDetails = require('./limitDetails');
 
-exe(
-  'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin master)',
-  (err, stdout) => {
-    const numberOfFiles = parseNumberOfFiles(stdout);
-    if (numberOfFiles > 0) {
-      console.log(
-        mapSizeToColour(
-          numberOfFiles,
-          `\nYour branch has changed ${numberOfFiles} files\n\n${mapSizeToMessage(
-            numberOfFiles
-          )}\n`
-        )
-      );
-    }
-  }
-);
+const matcher = new RegExp(/(\d*) file.? changed/);
+// FETCH_HEAD only works if you are on a branch that you have pushed
+const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin master)';
 
-const parseNumberOfFiles = output => {
+function parseNumberOfFiles(output) {
   const match = output.match(matcher);
-  console.log(output, match)
   return match && match.length > 1 ? match[1] : 0;
 };
 
-const mapSizeToMessage = numberOfFiles => {
-  if (numberOfFiles <= limits.risky) {
-    return messages.acceptable;
-  } else if (numberOfFiles <= limits.toobig) {
-    return messages.risky;
-  } else if (numberOfFiles <= limits.insane) {
-    return messages.toobig;
-  }
-  return messages.insane;
+function generateMessage(numberOfFiles) {
+  let previous = 0;
+  const details = limitDetails.find(detail => {
+    const isMatch = numberOfFiles >= previous && (!detail.maxNumber || numberOfFiles < detail.maxNumber);
+    previous = detail.maxNumber;
+    return isMatch;
+  });
+
+  return details.colour(`\n\n ${details.title} \n\n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n\n ${details.message} \n\n`);
 };
 
-const mapSizeToColour = (numberOfFiles, message) => {
-  if (numberOfFiles <= limits.risky) {
-    return chalk.bgGreen.black(message);
-  } else if (numberOfFiles <= limits.toobig) {
-    return chalk.bgYellow.red(message);
-  } else if (numberOfFiles <= limits.insane) {
-    return chalk.bgRed.yellow(message);
+function handleGitResponse(err, stdout) {
+  if (err) {
+    console.error(err);
+    process.exit(1);
   }
-  // too big!
-  return chalk.bgMagenta.white.bold(message);
-};
+
+  const numberOfFiles = parseNumberOfFiles(stdout);
+  if (numberOfFiles > 0) {
+    console.log(generateMessage(numberOfFiles));
+  }
+}
+
+
+exe(gitDiffCommand, handleGitResponse);

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "CLI to check potential size of pull request",
   "main": "check.js",
+  "files": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
