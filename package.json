@@ -2,6 +2,9 @@
   "name": "pull-request-size-reminder",
   "version": "1.0.0",
   "description": "CLI to check potential size of pull request",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "main": "check.js",
   "bin": "./check.js",
   "files": [
@@ -15,7 +18,11 @@
     "type": "git",
     "url": "git+https://github.com/mlennox/pull-request-size-reminder.git"
   },
-  "author": "Mark ",
+  "author": {
+    "name": "Mark Lennox",
+    "email": "mark@webpusher.ie",
+    "url": "https://webpusher.ie"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mlennox/pull-request-size-reminder/issues"
