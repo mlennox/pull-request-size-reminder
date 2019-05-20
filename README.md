@@ -8,6 +8,16 @@ In a busy team you want to minimise the amount of time your colleagues spend rev
 
 It is intended to be used in a pre-commit and/or pre-push git hook, and is particularly useful in new projects or teams with less experienced developers.
 
+## Example output
+
+![Great! Your branch has changed 4 files Good job! your pull request will be easy to review](./images/good.png)
+
+![Careful! Your branch has changed 17 files Your pull request is getting a little bit on the large side, keep an eye on it ](./images/risky.png)
+
+![Woah! A big PR! Your branch has changed 26 files Your pull request is large, think of your colleagues! ](./images/big.png)
+
+![Very large PR! Your branch has changed 45 files The number of files is too damn high!](./images/huge.png)
+
 ## Installation
 
 ```javascript
@@ -42,9 +52,9 @@ If you already have a `precommit` script then
 }
 ```
 
-### Example output
+### Output
 
-
+The default configuration outputs a 
 
 ## Configuration
 

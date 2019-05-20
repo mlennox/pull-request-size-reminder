@@ -28,7 +28,7 @@ function handleGitResponse(err, stdout) {
     process.exit(1);
   }
 
-  const numberOfFiles = 41; //parseNumberOfFiles(stdout);
+  const numberOfFiles = 45; //parseNumberOfFiles(stdout);
   if (numberOfFiles > 0) {
     console.log(generateMessage(numberOfFiles));
   }
