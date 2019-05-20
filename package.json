@@ -1,6 +1,6 @@
 {
   "name": "pull-request-size-reminder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI to check potential size of pull request",
   "engines": {
     "node": ">=10.0.0"
@@ -23,7 +23,7 @@
     "email": "mark@webpusher.ie",
     "url": "https://webpusher.ie"
   },
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mlennox/pull-request-size-reminder/issues"
   },
