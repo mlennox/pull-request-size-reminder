@@ -19,7 +19,7 @@ function generateMessage(numberOfFiles) {
     return isMatch;
   });
 
-  return details.colour(`\n\n ${details.title} \n\n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n\n ${details.message} \n\n`);
+  return details.colour(`\n\n ${details.title}  \n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n ${details.message} \n\n`);
 };
 
 function handleGitResponse(err, stdout) {
@@ -28,7 +28,7 @@ function handleGitResponse(err, stdout) {
     process.exit(1);
   }
 
-  const numberOfFiles = parseNumberOfFiles(stdout);
+  const numberOfFiles = 41; //parseNumberOfFiles(stdout);
   if (numberOfFiles > 0) {
     console.log(generateMessage(numberOfFiles));
   }
