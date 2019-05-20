@@ -1,6 +1,6 @@
 {
   "name": "pull-request-size-reminder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI to check potential size of pull request",
   "keywords": [
     "git",

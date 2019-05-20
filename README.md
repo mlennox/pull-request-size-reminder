@@ -10,13 +10,13 @@ It is intended to be used in a pre-commit and/or pre-push git hook, and is parti
 
 ## Example output
 
-![Great! Your branch has changed 4 files Good job! your pull request will be easy to review](./images/good.png)
+![Great! Your branch has changed 4 files Good job! your pull request will be easy to review](./good.png)
 
-![Careful! Your branch has changed 17 files Your pull request is getting a little bit on the large side, keep an eye on it ](./images/risky.png)
+![Careful! Your branch has changed 17 files Your pull request is getting a little bit on the large side, keep an eye on it ](./risky.png)
 
-![Woah! A big PR! Your branch has changed 26 files Your pull request is large, think of your colleagues! ](./images/big.png)
+![Woah! A big PR! Your branch has changed 26 files Your pull request is large, think of your colleagues! ](./big.png)
 
-![Very large PR! Your branch has changed 45 files The number of files is too damn high!](./images/huge.png)
+![Very large PR! Your branch has changed 45 files The number of files is too damn high!](./huge.png)
 
 ## Installation
 
