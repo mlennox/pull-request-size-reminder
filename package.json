@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "CLI to check potential size of pull request",
   "main": "check.js",
-  "files": "",
+  "bin": "./check.js",
+  "files": [
+    "src/**/*.js",
+    "!src/**/*.test.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,12 +15,15 @@
     "type": "git",
     "url": "git+https://github.com/mlennox/pull-request-size-reminder.git"
   },
-  "author": "",
+  "author": "Mark ",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mlennox/pull-request-size-reminder/issues"
   },
   "homepage": "https://github.com/mlennox/pull-request-size-reminder#readme",
+  "dependencies": {
+    "chalk": "^2.4.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
