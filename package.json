@@ -1,6 +1,6 @@
 {
   "name": "pull-request-size-reminder",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CLI to check potential size of pull request",
   "keywords": [
     "git",
@@ -8,10 +8,10 @@
     "pull request"
   ],
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=8.0.0"
   },
-  "main": "check.js",
-  "bin": "./check.js",
+  "main": "./src/check.js",
+  "bin": "./src/check.js",
   "files": [
     "src/**/*.js",
     "!src/**/*.test.js"
