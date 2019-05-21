@@ -18,7 +18,8 @@
   ],
   "scripts": {
     "test": "jest .",
-    "precommit": "npx eslint . && npm test"
+    "precommit": "npx eslint . && node ./src/check.js",
+    "prepush": "npm test && node ./src/check.js"
   },
   "repository": {
     "type": "git",
