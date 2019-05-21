@@ -11,18 +11,22 @@ function parseNumberOfFiles(output) {
 }
 
 function generateMessage(numberOfFiles) {
-  let previous = 0;
-  const details = limitDetails.find(detail => {
-    const isMatch = numberOfFiles >= previous && (!detail.maxNumber || numberOfFiles < detail.maxNumber);
-    previous = detail.maxNumber;
-    return isMatch;
-  });
+  const details = findRelevantMessageDetails(numberOfFiles);
 
   return details.colour(
     `\n\n ${details.title}  \n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n ${
       details.message
     } \n\n`
   );
+}
+
+function findRelevantMessageDetails(numberOfFiles) {
+  let previous = 0;
+  return limitDetails.find(detail => {
+    const isMatch = numberOfFiles >= previous && (!detail.maxNumber || numberOfFiles < detail.maxNumber);
+    previous = detail.maxNumber;
+    return isMatch;
+  });
 }
 
 function handleGitResponse(err, stdout) {
@@ -38,3 +42,11 @@ function handleGitResponse(err, stdout) {
 }
 
 exe(gitDiffCommand, handleGitResponse);
+
+// really only for testing - not ideal...
+module.exports = {
+  handleGitResponse,
+  generateMessage,
+  parseNumberOfFiles,
+  findRelevantMessageDetails,
+};
