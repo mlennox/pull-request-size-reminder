@@ -1,5 +1,11 @@
 import { findRelevantMessageDetails, generateMessage, handleGitResponse, parseNumberOfFiles } from './check';
 
+jest.mock('child_process', () => {
+  return {
+    exec: () => {},
+  };
+});
+
 describe('check', () => {
   describe('parseNumberOfFiles', () => {
     it('empty string returns 0 matched files', () => {

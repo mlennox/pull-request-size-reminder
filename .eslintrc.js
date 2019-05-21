@@ -72,6 +72,7 @@ module.exports = {
       "files": ["*.test.js"],
       "rules": {
         "max-nested-callbacks": ["warn", 10],
+        "no-unused-vars": "warn",
         "max-lines": [
           "warn",
           200

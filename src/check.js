@@ -6,7 +6,7 @@ const matcher = new RegExp(/(\d*) file.? changed/);
 const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin)';
 
 function parseNumberOfFiles(output) {
-  const match = output.match(matcher);
+  const match = (output || '').match(matcher);
   return match && match.length > 1 ? match[1] : 0;
 }
 
