@@ -7,7 +7,16 @@ const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD o
 
 function parseNumberOfFiles(output) {
   const match = (output || '').match(matcher);
-  return match && match.length > 1 ? match[1] : 0;
+  return match && match.length > 1 ? parseInt(match[1]) : 0;
+}
+
+function findRelevantMessageDetails(numberOfFiles) {
+  let previous = 0;
+  return limitDetails.find(detail => {
+    const isMatch = numberOfFiles >= previous && (!detail.maxNumber || numberOfFiles < detail.maxNumber);
+    previous = detail.maxNumber;
+    return isMatch;
+  });
 }
 
 function generateMessage(numberOfFiles) {
@@ -18,15 +27,6 @@ function generateMessage(numberOfFiles) {
       details.message
     } \n\n`
   );
-}
-
-function findRelevantMessageDetails(numberOfFiles) {
-  let previous = 0;
-  return limitDetails.find(detail => {
-    const isMatch = numberOfFiles >= previous && (!detail.maxNumber || numberOfFiles < detail.maxNumber);
-    previous = detail.maxNumber;
-    return isMatch;
-  });
 }
 
 function handleGitResponse(err, stdout) {
