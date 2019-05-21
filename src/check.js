@@ -3,12 +3,12 @@ const exe = require('child_process').exec;
 const limitDetails = require('./limitDetails');
 
 const matcher = new RegExp(/(\d*) file.? changed/);
-const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin master)';
+const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin)';
 
 function parseNumberOfFiles(output) {
   const match = output.match(matcher);
   return match && match.length > 1 ? match[1] : 0;
-};
+}
 
 function generateMessage(numberOfFiles) {
   let previous = 0;
@@ -18,8 +18,12 @@ function generateMessage(numberOfFiles) {
     return isMatch;
   });
 
-  return details.colour(`\n\n ${details.title}  \n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n ${details.message} \n\n`);
-};
+  return details.colour(
+    `\n\n ${details.title}  \n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n ${
+      details.message
+    } \n\n`
+  );
+}
 
 function handleGitResponse(err, stdout) {
   if (err) {
@@ -32,6 +36,5 @@ function handleGitResponse(err, stdout) {
     console.log(generateMessage(numberOfFiles));
   }
 }
-
 
 exe(gitDiffCommand, handleGitResponse);

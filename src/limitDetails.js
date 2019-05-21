@@ -20,11 +20,11 @@ module.exports = [
     maxNumber: 40,
     title: 'Woah! A big PR!',
     message: 'Your pull request is large, think of your colleagues!',
-    colour: chalk.whiteBright.bgRedBright.bold
+    colour: chalk.whiteBright.bgRedBright.bold,
   },
   {
     title: 'Very large PR!',
     message: 'The number of files is too damn high!',
-    colour: chalk.yellowBright.bgMagenta.bold
-  }
-]
+    colour: chalk.yellowBright.bgMagenta.bold,
+  },
+];
