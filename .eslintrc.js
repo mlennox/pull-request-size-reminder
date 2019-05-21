@@ -34,6 +34,7 @@ module.exports = {
       "error",
       5
     ],
+    "no-console": "warn",
     "max-params": ["warn", 4],
     "max-statements": [
       "warn",

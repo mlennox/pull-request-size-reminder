@@ -17,7 +17,8 @@
     "!src/**/*.test.js"
   ],
   "scripts": {
-    "test": "jest ."
+    "test": "jest .",
+    "precommit": "node eslint . && npm test"
   },
   "repository": {
     "type": "git",
