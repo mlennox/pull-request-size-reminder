@@ -3,7 +3,6 @@ const exe = require('child_process').exec;
 const limitDetails = require('./limitDetails');
 
 const matcher = new RegExp(/(\d*) file.? changed/);
-// FETCH_HEAD only works if you are on a branch that you have pushed
 const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin master)';
 
 function parseNumberOfFiles(output) {
@@ -28,7 +27,7 @@ function handleGitResponse(err, stdout) {
     process.exit(1);
   }
 
-  const numberOfFiles = 45; //parseNumberOfFiles(stdout);
+  const numberOfFiles = parseNumberOfFiles(stdout);
   if (numberOfFiles > 0) {
     console.log(generateMessage(numberOfFiles));
   }

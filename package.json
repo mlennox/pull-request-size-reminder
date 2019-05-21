@@ -1,6 +1,6 @@
 {
   "name": "pull-request-size-reminder",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "CLI to check potential size of pull request",
   "keywords": [
     "git",
@@ -43,5 +43,8 @@
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
     "prettier": "^1.17.1"
+  },
+  "pull-request-size-reminder": {
+    "defaultBranch": "develop"
   }
 }
