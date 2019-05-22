@@ -3,23 +3,31 @@ const exe = require('child_process').exec;
 const limitDetails = require('./limitDetails');
 
 const matcher = new RegExp(/(\d*) file.? changed/);
-const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin master)';
+const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin)';
 
 function parseNumberOfFiles(output) {
-  const match = output.match(matcher);
-  return match && match.length > 1 ? match[1] : 0;
-};
+  const match = (output || '').match(matcher);
+  return match && match.length > 1 ? parseInt(match[1]) : 0;
+}
 
-function generateMessage(numberOfFiles) {
+function findRelevantMessageDetails(numberOfFiles) {
   let previous = 0;
-  const details = limitDetails.find(detail => {
+  return limitDetails.find(detail => {
     const isMatch = numberOfFiles >= previous && (!detail.maxNumber || numberOfFiles < detail.maxNumber);
     previous = detail.maxNumber;
     return isMatch;
   });
+}
 
-  return details.colour(`\n\n ${details.title}  \n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n ${details.message} \n\n`);
-};
+function generateMessage(numberOfFiles) {
+  const details = findRelevantMessageDetails(numberOfFiles);
+
+  return details.colour(
+    `\n\n ${details.title}  \n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n ${
+      details.message
+    } \n\n`
+  );
+}
 
 function handleGitResponse(err, stdout) {
   if (err) {
@@ -33,5 +41,12 @@ function handleGitResponse(err, stdout) {
   }
 }
 
-
 exe(gitDiffCommand, handleGitResponse);
+
+// really only for testing - not ideal...
+module.exports = {
+  handleGitResponse,
+  generateMessage,
+  parseNumberOfFiles,
+  findRelevantMessageDetails,
+};

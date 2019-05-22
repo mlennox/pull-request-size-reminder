@@ -1,0 +1,22 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.15.1
+    steps:
+      - checkout
+      - run:
+          name: install-packages
+          command: npm install
+      - run:
+          name: unit-tests-and-coverage
+          command: npm test
+          environment:
+              JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+      - store_artifacts:
+          path: reports/junit
+          prefix: tests
+      - store_test_results:
+          path: reports/junit
+
