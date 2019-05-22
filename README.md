@@ -2,6 +2,8 @@
 
 A command-line tool that queries `git`, reporting the size of your next pull request.
 
+[![CircleCI](https://circleci.com/gh/mlennox/pull-request-size-reminder/tree/master.svg?style=svg)](https://circleci.com/gh/mlennox/pull-request-size-reminder/tree/master)
+
 ## Why?
 
 In a busy team you want to minimise the amount of time your colleagues spend reviewing your code. Small pull requests are usually the result of stories with a well-defined scope. Even with that, sometimes it gets away from us - especially if you are unfamiliar with the code. This package is intended to remind developers that the inevitable pull request may be large enough to annoy your colleagues.
