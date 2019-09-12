@@ -11,6 +11,9 @@
     "node": ">=8.0.0"
   },
   "main": "./src/check.js",
+  "bin": {
+    "pull-request-size-reminder": "./src/check.js"
+  },
   "files": [
     "src/**/*.js",
     "!src/**/*.test.js"
