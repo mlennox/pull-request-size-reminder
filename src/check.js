@@ -3,7 +3,7 @@ const exe = require('child_process').exec;
 const limitDetails = require('./limitDetails');
 
 const matcher = new RegExp(/(\d*) file.? changed/);
-const gitDiffCommand = 'git --no-pager diff --stat $(git merge-base FETCH_HEAD origin)';
+const gitDiffCommand = 'git --no-pager diff --cached --stat $(git merge-base FETCH_HEAD origin)';
 
 function parseNumberOfFiles(output) {
   const match = (output || '').match(matcher);
