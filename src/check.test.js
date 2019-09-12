@@ -33,11 +33,33 @@ describe('check', () => {
     it('if numberOfFiles greater than 40, matches very large message', () => {
       const expected = limitDetails[3];
       const result = findRelevantMessageDetails(45);
+
       expect(result).toEqual(expected);
     });
   });
 
-  describe('generateMessage', () => {});
+  describe('generateMessage', () => {
+    it('with 3 files changed', () => {
+      const result = generateMessage(3);
+      expect(result.text).toEqual(
+        `\n\n Great! \n Your branch has changed 3 files \n Good job! your pull request will be easy to review \n\n`
+      );
+    });
+  });
 
-  describe('handleGitResponse', () => {});
+  describe('handleGitResponse', () => {
+    test('error generates exit 1', () => {
+      const processMock = jest.spyOn(process, 'exit').mockImplementation(() => {});
+      handleGitResponse('some error code', null);
+      expect(processMock).toHaveBeenCalledWith(1);
+    });
+
+    test('if files have changed will log a message', () => {
+      const expected = '';
+      const diff = '1 file changed';
+      const consoleMock = jest.spyOn(console, 'log').mockImplementation(() => {});
+      handleGitResponse(null, diff);
+      expect(consoleMock).toHaveBeenCalledTimes(1);
+    });
+  });
 });

@@ -31,7 +31,7 @@ npm install --save-dev pull-request-size-reminder
 You can call the package from the command-line, through node.
 
 ```bash
-node pull-request-size-reminder
+npx pull-request-size-reminder
 ```
 
 The intended use is in conjunction with `husky` git hooks - `precommit` and/or `prepush`. Your project's `package.json` should be configured as below.
@@ -39,7 +39,7 @@ The intended use is in conjunction with `husky` git hooks - `precommit` and/or `
 ```javascript
 {
   "scripts": {
-    "precommit": "node pull-request-size-reminder"
+    "precommit": "npx pull-request-size-reminder"
   }
 }
 ```
