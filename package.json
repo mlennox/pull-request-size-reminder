@@ -1,6 +1,6 @@
 {
   "name": "pull-request-size-reminder",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "CLI to check potential size of pull request",
   "keywords": [
     "git",
@@ -20,8 +20,7 @@
   ],
   "scripts": {
     "test": "jest .",
-    "precommit": "npx eslint . && node ./src/check.js",
-    "prepush": "npm test && node ./src/check.js"
+    "eslint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -38,28 +37,35 @@
   },
   "homepage": "https://github.com/mlennox/pull-request-size-reminder#readme",
   "dependencies": {
-    "chalk": "^2.4.2"
+    "chalk": "^2.4.2",
+    "execa": "^3.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "@types/jest": "^24.0.13",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.8.0",
-    "eslint": "^5.16.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jest": "^22.5.1",
-    "eslint-plugin-prettier": "^3.1.0",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@types/jest": "^24.0.22",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^23.0.3",
+    "eslint-plugin-prettier": "^3.1.1",
     "husky": "^2.3.0",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "jest-junit": "^6.4.0",
-    "prettier": "^1.17.1"
+    "prettier": "^1.19.1"
   },
   "jest": {
     "reporters": [
       "default",
       "jest-junit"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx eslint . && node ./src/check.js",
+      "pre-push": "npm test && node ./src/check.js"
+    }
   }
 }
