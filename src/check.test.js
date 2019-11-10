@@ -64,7 +64,6 @@ describe('check', () => {
 
   describe('generateStagedFileCountMessage', () => {
     test('if files have changed will log a message', () => {
-      const expected = '';
       const diff = '1 file changed';
       const consoleMock = jest.spyOn(console, 'log').mockImplementation(() => {});
       generateStagedFileCountMessage(diff);

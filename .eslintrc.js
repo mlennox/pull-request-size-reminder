@@ -22,10 +22,6 @@ module.exports = {
     "jest",
   ],
   "rules": {
-    'indent': [
-      'error',
-      2
-    ],
     "prettier/prettier": [
       "error",
       {
