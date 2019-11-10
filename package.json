@@ -38,7 +38,8 @@
   },
   "homepage": "https://github.com/mlennox/pull-request-size-reminder#readme",
   "dependencies": {
-    "chalk": "^2.4.2"
+    "chalk": "^2.4.2",
+    "execa": "^3.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

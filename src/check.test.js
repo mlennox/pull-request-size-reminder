@@ -1,13 +1,28 @@
-import { findRelevantMessageDetails, generateMessage, handleGitResponse, parseNumberOfFiles } from './check';
+import {
+  findRelevantMessageDetails,
+  generateMessage,
+  generateStagedFileCountMessage,
+  parseNumberOfFiles,
+  findStagedFileCount,
+} from './checkStagedFiles';
 import limitDetails from './limitDetails';
+import git from './git';
 
-jest.mock('child_process', () => {
-  return {
-    exec: () => {},
-  };
-});
+jest.mock('./git', () =>
+  jest.fn().mockResolvedValue(`package-lock.json | 12 +++++++++---
+package.json      |  3 ++-
+src/check.js      | 11 ++++++++---
+3 files changed, 19 insertions(+), 7 deletions(-)`)
+);
 
 describe('check', () => {
+  describe('findStagedFileCount', () => {
+    it('git command called twice', async () => {
+      await findStagedFileCount();
+      expect(git).toHaveBeenCalledTimes(2);
+    });
+  });
+
   describe('parseNumberOfFiles', () => {
     it('empty string returns 0 matched files', () => {
       const result = parseNumberOfFiles();
@@ -47,18 +62,12 @@ describe('check', () => {
     });
   });
 
-  describe('handleGitResponse', () => {
-    test('error generates exit 1', () => {
-      const processMock = jest.spyOn(process, 'exit').mockImplementation(() => {});
-      handleGitResponse('some error code', null);
-      expect(processMock).toHaveBeenCalledWith(1);
-    });
-
+  describe('generateStagedFileCountMessage', () => {
     test('if files have changed will log a message', () => {
       const expected = '';
       const diff = '1 file changed';
       const consoleMock = jest.spyOn(console, 'log').mockImplementation(() => {});
-      handleGitResponse(null, diff);
+      generateStagedFileCountMessage(diff);
       expect(consoleMock).toHaveBeenCalledTimes(1);
     });
   });
