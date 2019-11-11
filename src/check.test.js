@@ -55,10 +55,15 @@ describe('check', () => {
 
   describe('generateMessage', () => {
     it('with 3 files changed', () => {
+      const expected = `
+
+ Great! 
+ Your branch has changed 3 files 
+ Good job! your pull request will be easy to review
+
+`;
       const result = generateMessage(3);
-      expect(result.text).toEqual(
-        `\n\n Great! \n Your branch has changed 3 files \n Good job! your pull request will be easy to review \n\n`
-      );
+      expect(result.text).toEqual(expected);
     });
   });
 
