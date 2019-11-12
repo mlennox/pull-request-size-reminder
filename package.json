@@ -1,6 +1,6 @@
 {
   "name": "pull-request-size-reminder",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "CLI to check potential size of pull request",
   "keywords": [
     "git",
@@ -10,9 +10,9 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "main": "./src/check.js",
+  "main": "./lib/check.js",
   "bin": {
-    "pull-request-size-reminder": "./src/check.js"
+    "pull-request-size-reminder": "./lib/check.js"
   },
   "files": [
     "src/**/*.js",
@@ -21,8 +21,7 @@
   "scripts": {
     "test": "jest .",
     "eslint": "eslint .",
-    "webpack": "webpack",
-    "release:old": "npx babel src --out-file lib/check.js --ignore \"src/**/*.spec.js\",\"src/**/*.test.js\""
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",

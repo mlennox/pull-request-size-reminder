@@ -1,8 +1,5 @@
-// webpack.config.js
-
 // eslint-disable-next-line
 const webpack = require('webpack');
-// const node = require('node-loader');
 const nodeExternals = require('webpack-node-externals');
 
 const config = {
