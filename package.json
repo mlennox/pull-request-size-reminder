@@ -15,8 +15,7 @@
     "pull-request-size-reminder": "./lib/check.js"
   },
   "files": [
-    "src/**/*.js",
-    "!src/**/*.test.js"
+    "lib/**/*.*"
   ],
   "scripts": {
     "test": "jest .",
