@@ -50,6 +50,14 @@ async function findStagedFileCount() {
     console.error(error);
     process.exit(1);
   }
+  try {
+    const sha = await git(['merge-base', 'HEAD', 'origin']);
+    const result = await git(['--no-pager', 'diff', '--cached', '--stat', sha]);
+    generateStagedFileCountMessage(result);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
 }
 
 module.exports = {
