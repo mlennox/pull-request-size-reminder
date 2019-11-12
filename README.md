@@ -56,7 +56,7 @@ If you already have a `precommit` script then
 
 ### Output
 
-The default configuration outputs a 
+The default configuration outputs the series of messages depending on how many files have been changed in your branch. See the [Example output above](#example-output)
 
 ## Configuration
 
