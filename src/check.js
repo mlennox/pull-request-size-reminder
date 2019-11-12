@@ -1,3 +1,3 @@
-const { findStagedFileCount } = require('./checkStagedFiles');
+const { findStagedFileCount: check } = require('./checkStagedFiles');
 
-findStagedFileCount();
+check();

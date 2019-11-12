@@ -1,4 +1,3 @@
-#! /usr/bin/env node
 const git = require('./git');
 const limitDetails = require('./limitDetails');
 
@@ -24,9 +23,13 @@ function generateMessage(numberOfFiles) {
 
   return {
     colour: details.colour,
-    text: `\n\n ${details.title} \n Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} \n ${
-      details.message
-    } \n\n`,
+    text: `
+
+ ${details.title} 
+ Your branch has changed ${numberOfFiles} file${numberOfFiles > 1 ? 's' : ''} 
+ ${details.message}
+
+`,
   };
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "pull-request-size-reminder",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "CLI to check potential size of pull request",
   "keywords": [
     "git",
@@ -10,9 +10,9 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "main": "./src/check.js",
+  "main": "./lib/check.js",
   "bin": {
-    "pull-request-size-reminder": "./src/check.js"
+    "pull-request-size-reminder": "./lib/check.js"
   },
   "files": [
     "src/**/*.js",
@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "test": "jest .",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
@@ -41,11 +42,15 @@
     "execa": "^3.2.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/preset-env": "^7.7.1",
     "@types/jest": "^24.0.22",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
+    "babel-preset-minify": "^0.5.1",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-import": "^2.18.2",
@@ -54,7 +59,11 @@
     "husky": "^2.3.0",
     "jest": "^24.9.0",
     "jest-junit": "^6.4.0",
-    "prettier": "^1.19.1"
+    "node-loader": "^0.6.0",
+    "prettier": "^1.19.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
   },
   "jest": {
     "reporters": [
