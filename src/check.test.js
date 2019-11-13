@@ -3,23 +3,77 @@ import {
   generateMessage,
   generateStagedFileCountMessage,
   parseNumberOfFiles,
-  findStagedFileCount,
-} from './checkStagedFiles';
+  git_diffSummary,
+  git_checkInitialisedAndRemoted,
+} from './check';
 import limitDetails from './limitDetails';
-import git from './git';
+import { exec } from 'child_process';
 
-jest.mock('./git', () =>
-  jest.fn().mockResolvedValue(`package-lock.json | 12 +++++++++---
-package.json      |  3 ++-
-src/check.js      | 11 ++++++++---
-3 files changed, 19 insertions(+), 7 deletions(-)`)
-);
+jest.mock('child_process', () => {
+  return {
+    exec: jest.fn(),
+  };
+});
 
 describe('check', () => {
-  describe('findStagedFileCount', () => {
-    it('git command called twice', async () => {
-      await findStagedFileCount();
-      expect(git).toHaveBeenCalledTimes(2);
+  let exitSpy;
+  beforeAll(() => {
+    exitSpy = jest.spyOn(process, 'exit');
+  });
+  beforeEach(() => {
+    exec.mockReset();
+    process.exit.mockReset();
+  });
+  describe('git_checkInitialisedAndRemoted', () => {
+    it('directory is not a repo or has no remote', () => {
+      exec.mockImplementation(() => new Promise.resolve({ stderr: 'some error' }));
+
+      git_checkInitialisedAndRemoted();
+
+      expect(exec).toHaveBeenCalledTimes(1);
+    });
+
+    it('checking git remote throws an error', () => {
+      exec.mockImplementation(() => Promise.reject('some error'));
+
+      git_checkInitialisedAndRemoted();
+
+      expect(exec).toHaveBeenCalledTimes(1);
+    });
+
+    it('the repo is initialised and has a remote', () => {
+      exec.mockImplementation(
+        () =>
+          new Promise.resolve({
+            stdout: `origin	git@github.com:mlennox/pull-request-size-reminder.git (fetch)
+origin	git@github.com:mlennox/pull-request-size-reminder.git (push)`,
+          })
+      );
+
+      git_checkInitialisedAndRemoted();
+
+      expect(exec).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('git_diffSummary', () => {
+    it('git command throws an error, process will exit', async () => {
+      exec.mockImplementation(() => {
+        throw new Error('some error');
+      });
+
+      await git_diffSummary().catch(() => {
+        expect(exitSpy).toHaveBeenCalledWith(1);
+      });
+    });
+
+    it('git command called as expected', () => {
+      git_diffSummary();
+
+      expect(exec).toHaveBeenCalledWith(
+        `git --no-pager diff --cached --stat $(git merge-base FETCH_HEAD origin)`,
+        expect.anything()
+      );
     });
   });
 

@@ -77,6 +77,10 @@ module.exports = {
           "warn",
           200
         ],
+        "max-statements": [
+          "warn",
+          20
+        ],
       }
     }
   ]
