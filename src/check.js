@@ -125,4 +125,5 @@ module.exports = {
   generateMessage,
   parseNumberOfFiles,
   findRelevantMessageDetails,
+  limitDetails,
 };
