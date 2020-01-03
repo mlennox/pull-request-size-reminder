@@ -5,8 +5,8 @@ import {
   parseNumberOfFiles,
   git_diffSummary,
   git_checkInitialisedAndRemoted,
+  limitDetails,
 } from './check';
-import limitDetails from './limitDetails';
 import { exec } from 'child_process';
 
 jest.mock('child_process', () => {
@@ -124,7 +124,9 @@ origin	git@github.com:mlennox/pull-request-size-reminder.git (push)`,
   describe('generateStagedFileCountMessage', () => {
     test('if files have changed will log a message', () => {
       const diff = '1 file changed';
-      const consoleMock = jest.spyOn(console, 'log').mockImplementation(() => {});
+      const consoleMock = jest.spyOn(console, 'log').mockImplementation(() => {
+        // lint won't allow empty curlies...
+      });
       generateStagedFileCountMessage(diff);
       expect(consoleMock).toHaveBeenCalledTimes(1);
     });
